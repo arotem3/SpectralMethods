@@ -1,4 +1,5 @@
 import numpy as np
+from scipy.fft import dct
 
 def barycentric_weights(x):
   """Computes the barycentric weights for interpolation on the grid given by x.
@@ -12,7 +13,8 @@ def barycentric_weights(x):
       w[k] *= x[k] - x[j]
       w[j] *= x[j] - x[k]
   
-  w = 1.0 / w
+  wmax = np.max(np.abs(w)) # scaling of the weights is meaningless might as well normalize
+  w = wmax / w
 
   return w
 
